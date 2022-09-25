@@ -1,0 +1,14 @@
+name: 'Android Test Result Printer'
+description: 'github action that organizes and outputs the results of the Android test to the terminal.'
+
+inputs:
+  simple-result:
+    description: 'Print only test result simply'
+    required: false
+    default: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.simple-result }}
