@@ -2,11 +2,10 @@ FROM python:3.7-slim-buster
 
 RUN apt-get -y update
 
-ADD ResultPrinter.py /home/ResultPrinter.py
-ADD requirements.txt /home/requirements.txt
-ADD TodoList /home/TodoList
+COPY ResultPrinter.py /ResultPrinter.py
+COPY requirements.txt /requirements.txt
 
 RUN python -m pip install --upgrade pip
-RUN pip install -r /home/requirements.txt
+RUN pip install -r /requirements.txt
 
-CMD ["python3.7", "/home/ResultPrinter.py"]
+ENTRYPOINT ["python3.7", "ResultPrinter.py"]
