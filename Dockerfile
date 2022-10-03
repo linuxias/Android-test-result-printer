@@ -1,7 +1,12 @@
-FROM ubuntu:latest
+FROM python:3.7-slim-buster
 
-RUN apt-get -y update && apt-get install -qy python
+RUN apt-get -y update
 
-#COPY entrypoint.sh /entrypoint.sh
+ADD ResultPrinter.py /home/ResultPrinter.py
+ADD requirements.txt /home/requirements.txt
+ADD TodoList /home/TodoList
 
-#ENTRYPOINT ["/entrypoint.sh"]
+RUN python -m pip install --upgrade pip
+RUN pip install -r /home/requirements.txt
+
+CMD ["python3.7", "/home/ResultPrinter.py"]

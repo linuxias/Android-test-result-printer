@@ -1,6 +1,8 @@
 # Android-test-result-printer
 
+Github Action that report android test result.
 
+![result_img](./doc/result.png)
 
 ### The path of test result what test with gradle
 |Unit Test Type|HTML test result files|XML test result files|

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="add_todo">Add todo list</string>
+    <string name="title">Title</string>
+    <string name="hint_title">Please enter what to do</string>
+    <string name="Importance">Importance</string>
+    <string name="Importance_high">High</string>
+    <string name="Importance_mid">Middle</string>
+    <string name="Importance_low">Low</string>
+    <string name="Complete">Complete</string>
+</resources>
