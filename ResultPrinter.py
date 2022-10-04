@@ -85,9 +85,8 @@ def main():
     success_table.add_column("Class Name")
     success_table.add_column("Time", justify="right")
 
-    failure_table.add_column("Name", style="dim")
-    failure_table.add_column("Class Name")
-    failure_table.add_column("Failure reason")
+    failure_table.add_column("TestName", style="dim", no_wrap=True)
+    failure_table.add_column("Failure reason", no_wrap=True)
 
     for path in result_path:
         s, f = parse_inst_test(path)
@@ -96,7 +95,7 @@ def main():
             success_table.add_row(_.name, _.classname, _.time)
             time = float(_.time)
         for _ in f:
-            failure_table.add_row(_.name, _.classname, _.failure)
+            failure_table.add_row(f"{_.name}\n({_.classname})", _.failure)
             time += float(_.time)
         summary_table.add_row(str(len(s) + len(f)), str(len(s)), str(len(f)), str(time))
 
