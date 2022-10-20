@@ -25,6 +25,15 @@ failure_table = Table(
             title="Android Test Failure Result", title_style="bold",
             expand=True)
 
+class Result:
+    def __init__(
+        self, name, classname, time, result, failure=None
+    ) -> None:
+        self.name = name
+        self.classname = classname
+        self.time = time
+        self.result = result
+        self.failure = failure
 
 def find_test_result_xml():
     result_path = []
@@ -35,15 +44,18 @@ def find_test_result_xml():
 
     return result_path
 
-class Result:
-    def __init__(
-        self, name, classname, time, result, failure=None
-    ) -> None:
-        self.name = name
-        self.classname = classname
-        self.time = time
-        self.result = result
-        self.failure = failure
+def init_printer_format():
+    summary_table.add_column("Total test")
+    summary_table.add_column("Success")
+    summary_table.add_column("Failure")
+    summary_table.add_column("Total time")
+
+    success_table.add_column("Name", style="dim")
+    success_table.add_column("Class Name")
+    success_table.add_column("Time", justify="right")
+
+    failure_table.add_column("TestName", style="dim", no_wrap=True)
+    failure_table.add_column("Failure reason", no_wrap=True)
 
 def parse_unit_test():
     pass
@@ -76,17 +88,7 @@ def main():
         print("Not found test result files. Please check what tests were executed successfully.")
         exit(-1)
 
-    summary_table.add_column("Total test")
-    summary_table.add_column("Success")
-    summary_table.add_column("Failure")
-    summary_table.add_column("Total time")
-
-    success_table.add_column("Name", style="dim")
-    success_table.add_column("Class Name")
-    success_table.add_column("Time", justify="right")
-
-    failure_table.add_column("TestName", style="dim", no_wrap=True)
-    failure_table.add_column("Failure reason", no_wrap=True)
+    init_printer_format()
 
     for path in result_path:
         s, f = parse_inst_test(path)
@@ -98,7 +100,6 @@ def main():
             failure_table.add_row(f"{_.name}\n({_.classname})", _.failure)
             time += float(_.time)
         summary_table.add_row(str(len(s) + len(f)), str(len(s)), str(len(f)), str(time))
-
 
     console.print(summary_table)
     console.print("")
